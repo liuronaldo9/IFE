@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">    
+    <title>IFE ECMAScript</title>
+    <style type="text/css">
+    	td {
+    		border: 1px solid #dddee1;
+    		background-color: #eee;
+    		padding: 5px;
+    	}
+    </style>
+</head>
+<body>
+	<div class="box box1">
+		<h1>练习一：将输入的十进制数值转化为二进制</h1>
+		<input id="dec-number"  placeholder="输入一个十进制非负整数">
+		<button id="trans-btn">转化为二进制</button>
+		<p id="result">计算结果是: <span class="span"></span></p>
+	</div>        
+
+	<div class="box box2">
+		<h1>练习二：使用循环和条件语句输入1到100的数字，其中含有3或者3的背书的数字使用"PA"表示</h1>
+		<div class="box2-num"></div>
+	</div>	
+
+	<div class="box box3">
+		<h1>练习三：使用循环在表格中输出九九乘法表</h1>
+		<table id="tables"></table>
+	</div>
+	<script>
+		/*
+			通过除2取余的方法，
+			实现当点击转化按钮时，将输入的十进制数字转化为二进制，并显示在result的p标签内
+		*/		
+		var quoti;
+		var flag = true;
+		var	btn = document.getElementById("trans-btn"),
+			result = document.getElementById("result");
+			span = document.getElementsByClassName("span")[0];
+		function testNumber(d) {
+			if(isNaN(d)) {
+				alert("输入的不是一个数字");
+				flag = false;
+			} else if(d.indexOf("-") != -1){
+				alert("请输入一个正值");
+				flag = false;	
+			} else if(d.indexOf(".") != -1){
+				alert("请输入一个整数");
+				flag = false;
+			} else if(d == "") {
+				alert("输入的数值不能为空");
+				flag = false;
+			}
+		}
+		function dec2bin(decNumber) {
+		    var arr = [];
+		    while(decNumber) {
+		    	quoti = decNumber%2; //取余
+		    	arr.push(quoti);
+		    	decNumber = parseInt(decNumber/2); // 取商取整
+		    }
+		    var arr1 = arr.reverse().join("");
+		   	return arr1;
+		}
+		btn.onclick = function() {
+			var number = document.getElementById("dec-number").value;
+			testNumber(number);
+			if(flag) {
+				span.innerHTML = dec2bin(number);
+			} else {
+				flag = !flag;
+				span.innerHTML = "";
+			}
+			
+		}
+		/*
+			3的小游戏，练习使用循环和条件语句，实现如下需求：
+			从1到100，以此在console输出各数字，但是，当数字为3的倍数或者含有3的时候，输出“PA”
+			比如：1,2,PA,4,5,PA,……,11,PA,PA,14,PA……
+		*/
+		var box2Num = document.getElementsByClassName("box2-num")[0];
+		var nums = [];
+		for(var i = 1;i <= 100;i++) {
+			if(i%3 == 0) {
+				nums.push("PA");
+			} else if(i.toString().indexOf("3") != -1) {
+				nums.push("PA");
+			}
+			else {
+				nums.push(i);
+			}
+		}
+		box2Num.innerHTML = nums;
+		/*
+			小练习，练习使用循环实现一个九九乘法表
+			第一步，最低要求：在Console中按行输出 n * m = t
+			然后，尝试在网页中，使用table来实现一个九九乘法表
+		*/
+		var tables = document.getElementById("tables");
+		var inow = 1;
+		for(var i = 1; i <= 9;i++) {
+			for(j = i; j <= 9; j++) {
+				var product = i * j;
+				var item = i + "x" + j + "=" + product;
+				if(i == inow + 1) {
+					var td = document.createElement("td");
+					td.innerHTML = item;
+					trs[j-1].appendChild(td);
+				} else {
+					var tr = document.createElement("tr");
+					var td = document.createElement("td");
+					td.innerHTML = item;
+					tr.appendChild(td);
+					tables.appendChild(tr);
+					trs = document.getElementsByTagName("tr");
+				}
+			}
+			inow = i;
+		}
+	</script>	
+</body>
+</html>
