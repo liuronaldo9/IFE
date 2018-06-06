@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <div style="background-color:green;width:170px;height:80px;margin:20px;padding-top:20px;color:#ffffff;font-weight:bold;font-size:18px;float:left;text-align:center; font-family:'微软雅黑';" onclick="clickMeEvent(this)">点击这里</div>
+
+
+
+
+        <script type="application/javascript">
+           
+            function clickMeEvent(obj)
+            {
+            if (obj.innerHTML=="再见")
+                {
+                obj.style.display="none";
+                }
+            else if (obj.innerHTML=="谢谢")
+                {
+                obj.innerHTML="再见";		
+                }
+            else if (obj.innerHTML=="点击这里<br>再次点击这里<br>再点一次")
+                {
+                obj.innerHTML="谢谢";		
+                }
+            else if (obj.innerHTML=="点击这里<br>再次点击这里")
+                {
+                obj.innerHTML=obj.innerHTML+"<br>再点一次";		
+                }
+            else
+                {
+                obj.innerHTML=obj.innerHTML+"<br>再次点击这里";
+                }
+            console.log(obj)
+            }
+          
+            </script>
+</body>
+</html>
